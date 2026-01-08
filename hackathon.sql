@@ -152,4 +152,16 @@ where customer_id in (
 );
 
 -- 17 Hiển thị thông tin của tất cả các đợt chi trả bồi thường 
-
+SELECT 
+    cp.payment_id,
+    p.policy_id,
+    c.full_name AS customer_name,
+    ia.full_name AS agent_name,
+    cp.payment_method,
+    cp.amount,
+    cp.payment_date
+FROM ClaimPayments cp
+JOIN Policies p ON cp.policy_id = p.policy_id
+JOIN Customers c ON p.customer_id = c.customer_id
+JOIN InsuranceAgents ia ON p.agent_id = ia.agent_id
+ORDER BY cp.payment_date;
